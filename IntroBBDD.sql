@@ -6,7 +6,12 @@ WHERE status = 'On Time';
 -- 2. Reservas con importe total mayor a 1.000.000
 SELECT *
 FROM bookings
-WHERE total_amount > 1000000;
+WHERE total_amount > 1000000; -- No hay ninguno mayor a este precio
+
+-- 2.5 Reservas con importe total mayor a 10000.00
+SELECT *
+FROM bookings
+WHERE total_amount > 10000; -- Hay muchos
 
 -- 3. Datos de los modelos de aviones disponibles
 SELECT *
@@ -16,7 +21,16 @@ FROM airplanes_data;
 SELECT f.flight_id, f.route_no, r.airplane_code
 FROM flights f
 JOIN routes r ON f.route_no = r.route_no
-WHERE r.airplane_code = '733';
+WHERE r.airplane_code = '733'; --no hay ninguno
+
+
+-- 4.5 Identificadores de vuelos operados por un Boeing 737 (Código 77W)
+SELECT f.flight_id, f.route_no, r.airplane_code, a.model->>'en' AS model
+FROM flights f
+JOIN routes r ON f.route_no = r.route_no
+JOIN airplanes_data a ON r.airplane_code = a.airplane_code 
+WHERE r.airplane_code = '77W' 
+  AND a.model->>'en' ILIKE '%Boeing%'; --Asi salen los modelos Boeing con este code
 
 -- 5. Información detallada de tickets de personas llamadas Irina
 SELECT *
