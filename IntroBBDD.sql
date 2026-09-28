@@ -24,12 +24,12 @@ JOIN routes r ON f.route_no = r.route_no
 WHERE r.airplane_code = '733'; --no hay ninguno
 
 
--- 4.5 Identificadores de vuelos operados por un Boeing 737 (Código 77W)
+-- 4.5 Identificadores de vuelos operados por un Boeing 737 (Código 7M7)
 SELECT f.flight_id, f.route_no, r.airplane_code, a.model->>'en' AS model
 FROM flights f
 JOIN routes r ON f.route_no = r.route_no
 JOIN airplanes_data a ON r.airplane_code = a.airplane_code 
-WHERE r.airplane_code = '77W' 
+WHERE r.airplane_code = '7M7' 
   AND a.model->>'en' ILIKE '%Boeing%'; --Asi salen los modelos Boeing con este code
 
 -- 5. Información detallada de tickets de personas llamadas Irina
